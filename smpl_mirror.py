@@ -153,7 +153,7 @@ def image_to_video(image_dir, video_path, fps):
 if __name__ == '__main__':
     smplx_model = creat_smplx_model()
     data_dir = './data'
-    mirror_type = 'local_mirror'  # optional: 'local_mirror', 'x_y_mirror'
+    mirror_type = 'local_mirror'  # optional: 'local_mirror', 'x_z_mirror'
 
     for motion_id in os.listdir(data_dir):
         t, r, pose, betas = load_smplx_data(os.path.join(data_dir, motion_id))
