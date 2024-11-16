@@ -68,7 +68,7 @@ def visualize_meshes(meshes, save_name):
     # S.show()
 
 
-def swap_left_right(t, r, pose, betas):
+def swap_left_right(t, r, pose, betas, mirror_type):
     back_bone_chain = [2,5,8,11,14]
     left_chain = [0,3,6,9,12,15,17,19]
     right_chain = [1,4,7,10,13,16,18,20]
@@ -80,7 +80,7 @@ def swap_left_right(t, r, pose, betas):
     # m_r[:, 1] = (m_r[:, 1] + 2 * np.pi) % (2 * np.pi) - np.pi
     m_r[:, 2] *= -1
 
-    R_cw = np.array([
+    R_pi = np.array([
                     [-1, 0, 0],
                     [0, 1, 0],
                     [0, 0, -1]
@@ -88,7 +88,16 @@ def swap_left_right(t, r, pose, betas):
     for index in range(m_r.shape[0]):
         r = m_r[index]
         R_c = Rotation.from_rotvec(r).as_matrix()
-        R_w = np.dot(R_cw, R_c)
+        if mirror_type == 'x_y_mirror':
+            R_w = np.dot(R_pi, R_c)
+        elif mirror_type == 'local_mirror':
+            theta = np.linalg.norm(m_r)
+            v = r / theta
+            v_y = v[1]
+            b = theta * v_y
+            y_rot = Rotation.from_euler('y', -2*b).as_matrix()
+            R_w = np.dot(y_rot, R_c)
+
         m_r[index] = Rotation.from_matrix(R_w).as_rotvec()
 
 
@@ -144,10 +153,11 @@ def image_to_video(image_dir, video_path, fps):
 if __name__ == '__main__':
     smplx_model = creat_smplx_model()
     data_dir = './data'
+    mirror_type = 'local_mirror'  # optional: 'local_mirror', 'x_y_mirror'
 
     for motion_id in os.listdir(data_dir):
         t, r, pose, betas = load_smplx_data(os.path.join(data_dir, motion_id))
-        m_t, m_r, m_pose, m_betas = swap_left_right(t, r, pose, betas)
+        m_t, m_r, m_pose, m_betas = swap_left_right(t, r, pose, betas, mirror_type)
 
         # T_pose = np.zeros(63, dtype=np.float32).reshape(-1, 3)
         # T_pose[14][0] = np.pi/4
