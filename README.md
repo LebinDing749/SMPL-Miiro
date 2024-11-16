@@ -23,12 +23,12 @@ allowing for the creation of symmetric SMPL parameter data.
 Green represents the original, and red represents the mirrored.
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    <img src="video/0007_5/30.png" alt="Image 1" width="45%" />
-    <img src="video/0007_5/60.png" alt="Image 2" width="45%" />
-    <img src="video/0010_6/100.png" alt="Image 3" width="45%" />
-    <img src="video/0073_3/0.png" alt="Image 4" width="45%" />
-    <img src="video/1666_7/70.png" alt="Image 5" width="45%" />
-    <img src="video/1667_4/150.png" alt="Image 6" width="45%" />
+    <img src="video_x_z/0007_5/30.png" alt="Image 1" width="45%" />
+    <img src="video_x_z/0007_5/60.png" alt="Image 2" width="45%" />
+    <img src="video_x_z/0010_6/100.png" alt="Image 3" width="45%" />
+    <img src="video_x_z/0073_3/0.png" alt="Image 4" width="45%" />
+    <img src="video_x_z/1666_7/70.png" alt="Image 5" width="45%" />
+    <img src="video_x_z/1667_4/150.png" alt="Image 6" width="45%" />
 </div>
 
 ## Acknowledgements
